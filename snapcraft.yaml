@@ -1,9 +1,9 @@
-name: core18
+name: encore18
 # version: 18
 adopt-info: boostrap
 summary: Runtime environment based on Ubuntu 18.04
 description: |
-  The base snap based on the Ubuntu 18.04 release.
+  The encore release of core18 base snap based on the Ubuntu 18.04 release.
 confinement: strict
 type: base
 
@@ -18,7 +18,7 @@ parts:
     # so we need to explicitly list the .disk file for it to get staged/primed.
     stage: [ .disk, ./* ]
     prime: [ .disk, ./* ]
-    # XXX: Dirty hacks to enable building core18 on non-bionic systems.
+    # XXX: Dirty hacks to enable building encore18 on non-bionic systems.
     # Without these overrides both the PATH and LD_LIBRARY_PATH contain paths
     # in the part's install directory which binaries can be incompatible with
     # the ones running on our system.  We don't need those while running stage

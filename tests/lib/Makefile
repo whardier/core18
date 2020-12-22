@@ -5,12 +5,12 @@ QEMU_CMD = qemu-system-x86_64 \
 	-m 1500 \
 	-netdev user,id=mynet0,hostfwd=tcp::8022-:22,hostfwd=tcp::8090-:80 \
 	-device virtio-net-pci,netdev=mynet0 \
-	-drive file=core18/image.raw,format=raw \
+	-drive file=encore18/image.raw,format=raw \
 	-vga qxl \
 	-snapshot \
 	-kernel kernel \
 	-initrd initrd \
-	-append "root=LABEL=writable snap_core=core18_very-unstable_amd64.snap snap_kernel=pc-kernel.snap ro net.ifnames=0 init=/lib/systemd/systemd console=tty1 systemd.debug-shell=1"
+	-append "root=LABEL=writable snap_core=encore18_very-unstable_amd64.snap snap_kernel=pc-kernel.snap ro net.ifnames=0 init=/lib/systemd/systemd console=tty1 systemd.debug-shell=1"
 
 # Update (or build if missing) and boot the image
 .PHONY: update-and-boot
@@ -22,26 +22,26 @@ update-and-boot:
 # Update (or build if missing) the image.
 .PHONY: just-update
 .ONESHELL: just-update
-just-update: kernel initrd ../../core18_very-unstable_amd64.snap
-	if [ ! -e core18/image.raw ]; then
+just-update: kernel initrd ../../encore18_very-unstable_amd64.snap
+	if [ ! -e encore18/image.raw ]; then
 		# Create some files and directories so that they are all owned by us.
-		mkdir -p core18/p1
-		mkdir -p core18/p2
-		mkdir -p core18/p3
-		touch core18/image.raw
-		touch core18/image.script
-		sudo ./create-image core18
+		mkdir -p encore18/p1
+		mkdir -p encore18/p2
+		mkdir -p encore18/p3
+		touch encore18/image.raw
+		touch encore18/image.script
+		sudo ./create-image encore18
 	fi
-	# Update (this puts the kernel and new core18 snap inside)
-	sudo ./mount-image core18
-	sudo cp ../../core18_very-unstable_amd64.snap core18/p3/system-data/var/lib/snapd/snaps/
-	sudo cp --dereference pc-kernel.snap core18/p3/system-data/var/lib/snapd/snaps/
-	sudo ./umount-image core18
+	# Update (this puts the kernel and new encore18 snap inside)
+	sudo ./mount-image encore18
+	sudo cp ../../encore18_very-unstable_amd64.snap encore18/p3/system-data/var/lib/snapd/snaps/
+	sudo cp --dereference pc-kernel.snap encore18/p3/system-data/var/lib/snapd/snaps/
+	sudo ./umount-image encore18
 
 # Just boot the image
 .PHONY: just-boot
 .ONESHELL: just-boot
-just-boot: kernel initrd core18/image.raw
+just-boot: kernel initrd encore18/image.raw
 	$(QEMU_CMD)
 
 # Start the image in the background. This is relevant for spread.
@@ -69,7 +69,7 @@ clean:
 	rm -f kernel
 	rm -f pc-kernel_*.assert
 	rm -f pc-kernel_*.snap
-	rm -rf core18
+	rm -rf encore18
 	rm -rf kernel-snap
 	rm -rf core-snap
 	rm -f core.snap

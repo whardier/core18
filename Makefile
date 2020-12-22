@@ -41,9 +41,9 @@ install:
 	done;
 
 	# only generate manifest file for lp build
-	if [ -e /build/core18 ]; then \
+	if [ -e /build/encore18 ]; then \
 		echo $$f; \
-		/bin/cp $(DESTDIR)/usr/share/snappy/dpkg.list /build/core18/core18-$$(date +%Y%m%d%H%M)_$(DPKG_ARCH).manifest; \
+		/bin/cp $(DESTDIR)/usr/share/snappy/dpkg.list /build/encore18/encore18-$$(date +%Y%m%d%H%M)_$(DPKG_ARCH).manifest; \
 	fi;
 
 .PHONY: check

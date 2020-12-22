@@ -1,7 +1,7 @@
 #!/bin/sh -ex
 # The directories created here are not the full set needed by snapd but given
-# the way core18 + snapd booting looks like, they are not used anyway. On a
-# core18 system /var/lib/snapd and /var/cache/snapd are bind-mounts to
+# the way encore18 + snapd booting looks like, they are not used anyway. On a
+# encore18 system /var/lib/snapd and /var/cache/snapd are bind-mounts to
 # directories in /writable/system-data/ - as such nothing beyond the mount
 # points is used.
 
